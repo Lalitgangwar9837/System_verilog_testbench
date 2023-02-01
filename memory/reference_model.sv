@@ -50,8 +50,7 @@ ref_r_data=pac.r_data;
    end
 end
 
-ref_r_data=ref_r_data;
-ref_w_data=ref_w_data;
+
 m6.put(ref_r_data);
 m6.put(ref_w_data);
     $display("------------------------------------"); 
