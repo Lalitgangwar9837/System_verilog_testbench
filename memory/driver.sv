@@ -2,11 +2,11 @@
 class driver;
 bit clk=0;
 bit reset=0;
-mailbox m2;
+mailbox gen_to_driv;
 virtual bus b4;
-function new (virtual bus b4,mailbox m2);
+function new (virtual bus b4,mailbox gen_to_driv);
 	this.b4=b4;
-	this.m2=m2;
+	this.gen_to_driv=gen_to_driv;
 endfunction
 
 task main();
@@ -14,7 +14,7 @@ task main();
 		repeat (1)
 		begin
 			packet pac=new();
-			m2.get(pac);
+			gen_to_driv.get(pac);
 			b4.address<=pac.address;
 			b4.w_data<=pac.w_data;
 			b4.rd_en<=pac.rd_en;
