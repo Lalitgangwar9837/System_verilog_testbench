@@ -1,10 +1,10 @@
 
 class monitor;
 virtual bus b5;
-mailbox m4;
-function new (virtual bus b5,mailbox m4);
+mailbox mon_to_soc;
+function new (virtual bus b5,mailbox mon_to_soc);
 	this.b5=b5;
-	this.m4=m4;
+	this.mon_to_soc=mon_to_soc;
 endfunction
 
 task main;
@@ -18,7 +18,7 @@ packet pac;
 		pac.rd_en=b5.rd_en;
 		pac.wr_en=b5.wr_en;
 		pac.r_data=b5.r_data;
-		m4.put(pac);
+		mon_to_soc.put(pac);
 		pac.display("monitor");
 	end
 end
