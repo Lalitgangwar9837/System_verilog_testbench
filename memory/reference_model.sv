@@ -5,12 +5,12 @@ bit [1:0] address;
 bit [7:0] ref_w_data;
 bit [7:0] ref_r_data;
 bit [7:0] mem[0:3];
-mailbox m5;
-mailbox m6;
+mailbox gen_to_ref;
+mailbox ref_to_soc;
 virtual bus b10;
-function new (virtual bus b10,mailbox m5,mailbox m6);
-	this.m5=m5;
-	this.m6=m6;
+function new (virtual bus b10,mailbox gen_to_ref,mailbox ref_to_soc);
+	this.gen_to_ref=gen_to_ref;
+	this.ref_to_soc=ref_to_soc;
 	this.b10=b10;
 endfunction
 
@@ -19,7 +19,7 @@ begin
 repeat (1)
 begin
 packet pac=new();
-m5.get(pac);
+gen_to_ref.get(pac);
 rd_en=pac.rd_en;
 wr_en=pac.wr_en;
 address=pac.address;
@@ -50,9 +50,8 @@ ref_r_data=pac.r_data;
    end
 end
 
-
-m6.put(ref_r_data);
-m6.put(ref_w_data);
+ref_to_soc.put(ref_r_data);
+ref_to_soc.put(ref_w_data);
     $display("------------------------------------"); 
     $display($time,"%s","reference_model");
     $display("------------------------------------");
