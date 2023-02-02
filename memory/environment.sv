@@ -8,32 +8,32 @@
 
 class environment ;
 virtual bus b3;
-mailbox m3;
-mailbox m5;
-mailbox m9;
-mailbox m10;
+mailbox gen_to_driv;
+mailbox gen_to_ref;
+mailbox mon_to_soc;
+mailbox ref_to_soc;
 function new (virtual bus b3);
 this.b3=b3;
 endfunction 
 task main();
 begin
-	m3=new(1);
-	m5=new(1);
-	m9=new(1);
-	m10=new(2);
+	gen_to_driv=new(1);
+	gen_to_ref=new(1);
+	mon_to_soc=new(1);
+	ref_to_soc=new(2);
 		fork
 		generator gen;
-	        driver dri;
+	    driver dri;
 		monitor mon;
 		reference refe;
 		scoreboard sco;
 		
 		
-		gen=new(m3,m9);
-		refe=new(b3,m9,m10);
-		dri=new(b3,m3);
-		mon=new(b3,m5);
-		sco=new(m10,m5);
+        gen=new(gen_to_driv,gen_to_ref);
+        refe=new(b3,gen_to_ref,ref_to_soc);
+		dri=new(b3,gen_to_driv);
+        mon=new(b3,mon_to_soc);
+		sco=new(ref_to_soc,mon_to_soc);
 		
 		repeat (50)
 		
