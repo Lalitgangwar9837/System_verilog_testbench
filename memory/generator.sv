@@ -1,10 +1,10 @@
 class generator;
-mailbox m1;
-mailbox m2;
+mailbox gen_to_driv;
+mailbox gen_to_ref;
 
-function new (mailbox m1,mailbox m2);
-	this.m1=m1;
-	this.m2=m2;
+function new (mailbox gen_to_driv,mailbox gen_to_ref);
+	this.gen_to_driv=gen_to_driv;
+	this.gen_to_ref=gen_to_ref;
 endfunction
 
 task main();
@@ -13,8 +13,8 @@ task main();
 	begin
  		packet pac =new();
 		void'(pac.randomize);
-		m1.put(pac);
-		m2.put(pac);
+		gen_to_driv.put(pac);
+		gen_to_ref.put(pac);
 		pac.display("generator");
 	end
 	end : generator
