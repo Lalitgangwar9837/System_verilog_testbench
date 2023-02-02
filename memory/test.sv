@@ -1,11 +1,11 @@
 `include "environment.sv"
 
-program test (bus b2);
+program test (bus b1);
 initial
 	begin
 		
 		environment env;
-		env=new(b2);
+      env=new(b1);
 		env.main();
 
 	end
