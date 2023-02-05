@@ -13,9 +13,5 @@ module mod4countertb();
   intf a_intf(clk,rst);
   test t1(a_intf);
   mod4counter DUT(.cnt(a_intf.cnt), .clk(a_intf.clk), .rst(a_intf.rst));
-  initial
-    begin
-      $dumpfile("count.vcd");
-      $dumpvars();
-    end
+
 endmodule
